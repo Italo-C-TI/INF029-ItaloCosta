@@ -6,10 +6,10 @@ int  main () {
     float IMC, altura,massa;
     
     	printf("Digite sua altura em metros:\n");
-    	scanf("%4f", &altura); 
+    	scanf("%f", &altura); 
 		
 		printf("Digite sua massa corportal em kilos:\n");
-    	scanf("%4f", &massa);   
+    	scanf("%f", &massa);   
       
    IMC =indiceMC ( massa,altura);
     	
