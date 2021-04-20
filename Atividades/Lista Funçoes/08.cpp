@@ -31,7 +31,7 @@ Cliente cadastrarCliente() {
 
     printf("Data De Nascimento (DDMMYYYY): ");
     scanf("%d", &DataNasc);
-    clearbuffer();
+    
 
     printf("CPF (SOMENTE NUMEROS): ");
     fgets(cliente.cpf, 15, stdin);
