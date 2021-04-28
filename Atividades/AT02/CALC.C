@@ -6,14 +6,14 @@
 		float num1,num2;
 		double result;	
 			
-			printf("opções:\n0-Sair\n1-somar\n2-Subtrair\n3-Mutiplicar\n4-Dividir\nDigite a função desejada\n");
+			printf("opï¿½ï¿½es:\n0-Sair\n1-somar\n2-Subtrair\n3-Mutiplicar\n4-Dividir\nDigite a funï¿½ï¿½o desejada\n");
 			scanf("%i",&lista);
 			
 				if ((lista>0)&&(lista<5)) {
 		
-					printf("\nDigite o primeiro valor a ser operado:\n");
+					printf("\nDigite o primeiro valor a ser operado :\n");
 					scanf("%f",&num1);
-					printf("\nDigite o segundo valor a ser operado:\n");
+					printf("\nDigite o segundo valor a ser operado :\n");
 					scanf("%f",&num2);
 				}
 		
@@ -37,7 +37,7 @@
 				
 				case 4: 
 					if(num2==0) 
-				printf("Não é possivel dividir por 0");
+				printf("Nï¿½o ï¿½ possivel dividir por 0");
 					
 					else{	
 				result = num1/num2;
@@ -46,7 +46,7 @@
 				}
 				
 				default: 
-				printf("Não é uma opção valida,encerrando programa");
+				printf("Nï¿½o ï¿½ uma opï¿½ï¿½o valida,encerrando programa");
 				return 0;
 				break;
 			
