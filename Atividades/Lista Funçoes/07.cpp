@@ -8,13 +8,13 @@ typedef struct  {
 Palavras ler3Palavras() {
 	 Palavras variavel;
 
-    printf("Digite a primeira palavra:\n");
+    printf("Digite a primeira palavra :\n");
     fgets(variavel.palavra1, 128, stdin);
 
-    printf("Digite a segunda palavra:\n");
+    printf("Digite a segunda palavra :\n");
     fgets(variavel.palavra2, 128, stdin);
 
-    printf("Digite a terceira palavra:\n");
+    printf("Digite a terceira palavra :\n");
     fgets(variavel.palavra3, 128, stdin);
 
     return variavel;
