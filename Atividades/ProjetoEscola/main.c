@@ -6,6 +6,11 @@
                 int quant, cont;
 				int opcao, opcao1,opcao2,opcao3, opcao4,opcao5;
 				int cads,cads1,cads2,CADS,CADS1,CADS2;
+	int valid;
+	int dia[300];
+	int mes[300];
+	int ano[300];
+
 
 struct aluno{  
     char nome[64];
@@ -14,7 +19,6 @@ struct aluno{
     char sexo;
 }
 Aluno[300];
-
 
 struct professor{  
     char nome[64];
@@ -31,6 +35,9 @@ struct disciplina{
 }
 Disciplina[300];
 
+    dia[300] = Aluno[cont].DataNasc / 1000000;
+    mes[300] = Aluno[cont].DataNasc % 1000000 / 10000;
+    ano[300]= Aluno[cont].DataNasc % 1000000 % 10000;
 
  
 	while(opcao!=0){
@@ -68,17 +75,18 @@ case 1: //CADASTRAR ALUNO
 			system("cls"); 			
 			   
 			   		for(cont=1+CADS;cont<=cads+CADS;cont++){
+			printf("============ CADASTRO %i ==============\n\n\n",cont);
 			
 						printf("NOME: ");
 					    fflush(stdin);
-					    scanf("%[^\n]s",Aluno[cont].nome);
+					    scanf("%[^\n]s",Aluno[cont].nome);	
 						
 						printf("Sexo: ");
 						fflush(stdin);
 					    scanf("%c", &Aluno[cont].sexo);
+	          
 					    
-					    
-					    printf("Data De Nascimento (DDMMYYYY): ");
+						printf("Data De Nascimento (DDMMYYYY): ");
 					    scanf("%i", &Aluno[cont].DataNasc);
 					
 					    printf("CPF (SOMENTE NUMEROS): ");
@@ -97,7 +105,7 @@ case 2://CADASTRAR PROFESSOR
 	  		system("cls");  
      			
 					printf("----BEM VINDO AO CADASTRO DE PROFESSORES----\n\n\n");
-		
+					
 					printf("Quantos professores ja estao cadastrados?(encontrado em listar)\n");
 	      			scanf("%i", &CADS1);
 	      			  	  
@@ -108,7 +116,8 @@ case 2://CADASTRAR PROFESSOR
 		   	system("cls"); 			
 		   
 		   for(cont=1+CADS1;cont<=cads1+CADS1;cont++){
-		
+						printf("============ CADASTRO %i ==============\n\n\n",cont);
+						
 						printf("Nome do professor : ");
 					    fflush(stdin);
 					    scanf("%[^\n]s",Professor[cont].nome);
@@ -116,10 +125,22 @@ case 2://CADASTRAR PROFESSOR
 						printf("Sexo: ");
 						fflush(stdin);
 					    scanf("%c", &Professor[cont].sexo);
-					    
+					
+			if(Professor[cont].sexo == 'm' || Professor[cont].sexo == 'M') { }
+			else if(Professor[cont].sexo == 'f' || Professor[cont].sexo == 'F'){}    	
+			else if(Professor[cont].sexo == 'o' || Professor[cont].sexo == 'O'){}
+																	
+			else {
+						memset (&Professor[cont].nome,0,sizeof(Professor[cont].nome));
+						memset(&Professor[cont].sexo,0,sizeof(Professor[cont].sexo));
+						printf("sexo invalido\n");
+			break ;				    
+				 }            
+		   
 					    
 					    printf("Data De Nascimento (DDMMYYYY): ");
 					    scanf("%i", &Professor[cont].DataNasc);
+				 
 					
 					    printf("CPF (SOMENTE NUMEROS): ");
 					    fflush(stdin);
@@ -146,7 +167,7 @@ case 3: //CADASTRAR DISCIPLINA
 			system("cls");
    
     	for(cont=1+CADS2;cont<=cads2+CADS2;cont++){
-		
+					printf("============ CADASTRO %i ==============\n\n\n",cont);
 					printf("NOME DA DISICPLINA: ");
 					fflush(stdin);
 					scanf("%[^\n]s",Disciplina[cont].nome);
@@ -252,7 +273,17 @@ case 5:
                     printf("Sexo: ");
                     fflush(stdin);
                     scanf("%c", &Aluno[cont].sexo);
-                        
+            
+			if(Aluno[cont].sexo == 'm' || Aluno[cont].sexo == 'M') { }
+			else if(Aluno[cont].sexo == 'f' || Aluno[cont].sexo == 'F'){}    	
+			else if(Aluno[cont].sexo == 'o' || Aluno[cont].sexo == 'O'){}
+																	
+			else {
+						memset (&Aluno[cont].nome,0,sizeof(Aluno[cont].nome));
+						memset(&Aluno[cont].sexo,0,sizeof(Aluno[cont].sexo));
+						printf("sexo invalido\n");
+			break ;				    
+				 }            
                         
                     printf("Data De Nascimento (DDMMYYYY): ");
                     scanf("%i", &Aluno[cont].DataNasc);
@@ -284,6 +315,17 @@ case 5:
                     printf("Sexo: ");
                     fflush(stdin);
                     scanf("%c", &Professor[cont].sexo);
+                    
+            if(Professor[cont].sexo == 'm' || Professor[cont].sexo == 'M') { }
+			else if(Professor[cont].sexo == 'f' || Professor[cont].sexo == 'F'){}    	
+			else if(Professor[cont].sexo == 'o' || Professor[cont].sexo == 'O'){}
+																	
+			else {
+						memset (&Professor[cont].nome,0,sizeof(Professor[cont].nome));
+						memset(&Professor[cont].sexo,0,sizeof(Professor[cont].sexo));
+						printf("sexo invalido\n");
+			break ;				    
+				 }         
                         
                         
                     printf("Data De Nascimento (DDMMYYYY): ");
@@ -330,6 +372,8 @@ case 5:
 break;
 
 case 6:
+			system("cls");	
+				
 				printf(" ---------EXCLUIR CADASTRO----------\n");
 				printf("1-Aluno\n");
 				printf("2-Professor\n");
