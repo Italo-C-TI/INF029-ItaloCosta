@@ -211,7 +211,7 @@ int q2(char *datainicial, char *datafinal, int *qtdDias, int *qtdMeses, int *qtd
         } else if (iMes == 4 || iMes == 6 || iMes == 9 || iMes == 11) {
             nDias =nDias + 30;
         }    
-        else if(iMes==2 && ( (iDia == 29 && iMes == 2) && ( (iAno % 4) == 0) )){
+        else if(iMes==2 && ( (iAno % 4) == 0) ){
             nDias=nDias+29;
         }
         else if(iMes=2){
