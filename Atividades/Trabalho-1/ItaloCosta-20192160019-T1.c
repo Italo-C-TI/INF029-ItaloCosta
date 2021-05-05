@@ -22,9 +22,11 @@
 // #################################################
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
+#include <math.h>
+#include <stdlib.h>
 
+void usarData();
 /*
 ## fun��o utilizada para testes  ##
  somar = somar dois valores
@@ -35,6 +37,8 @@
 @saida
     resultado da soma (x + y)
  */
+
+
 int somar(int x, int y)
 {
     int soma = 0;
@@ -54,7 +58,15 @@ int somar(int x, int y)
  */
 int fatorial(int x)
 { //fun��o utilizada para testes
-    int fat = 1;
+    int fat = 1,i;
+      
+      if(x<=1)
+        fat=1;
+      
+      else{
+        for (i=2; i <= x; i++)
+            fat = fat * i ;
+      }
     return fat;
 }
 
@@ -123,6 +135,13 @@ int q1(char *data){
     int iDia = atoi(dia);
     int iMes = atoi(mes);
     int iAno = atoi(ano);
+    int fDia = atoi(dia);
+    int fMes = atoi(mes);
+    int fAno = atoi(ano);
+
+     if(iAno<=99){//para datas de 2 digitos
+        iAno=iAno + 2000;
+    }
     
 	//Valida dia 
 	if ( (iDia>0 && iDia<=31) && (iMes>0 && iMes<=12) && ( iAno >= 0) ){
@@ -146,9 +165,7 @@ int q1(char *data){
     else{
         return 0;
         	}
-    if(iAno<=99){//para datas de 2 digitos
-        iAno=iAno + 2000;
-    }
+   
 
 }
 /*
@@ -165,26 +182,51 @@ int q1(char *data){
  */
 int q2(char *datainicial, char *datafinal, int *qtdDias, int *qtdMeses, int *qtdAnos)
 {
+    int iDia = 0, iMes = 0, iAno = 0, fDia = 0, fMes = 0, fAno = 0; 
+    usarData( datainicial,&iDia, &iMes, &iAno);
+    usarData(datafinal, &fDia, &fMes, &fAno);
+    int nDias ,nMeses ,nAnos ;
+    
 
-    //calcule os dados e armazene nas três variáveis a seguir
-    int nDias, nMeses, nAnos;
-
-    if (q1(datainicial) == 0)
+   
+    if (q1(datainicial) == 0) {
         return 2;
+    } else if (q1(datafinal) == 0) {
+        return 3;
+    }
+  
 
-    nDias = 4;
-    nMeses = 10;
-    nAnos = 2;
+    if ((iAno > fAno )|| (iAno == fAno && iMes > fMes) || (iAno==fAno && iMes == fMes && iDia > fDia))  {
+        return 4;
+    }
+    
+    nDias = fDia - iDia;
+    nMeses = fAno - iAno;
+    nAnos = fMes - iMes;
 
-    /*mantenha o código abaixo, para salvar os dados em 
-    nos parâmetros da funcao
-    */
+ if (nDias < 0) {
+        nMeses--;
+        if (iMes == 1 || iMes == 3 || iMes == 5 || iMes == 7 || iMes == 8 || iMes== 10 || iMes == 12) {
+            nDias += 31;
+        } else if (iMes == 4 || iMes == 6 || iMes == 9 || iMes == 11) {
+            nDias =nDias + 30;
+        }    
+        else if(iMes==2 && ( (iDia == 29 && iMes == 2) && ( (iAno % 4) == 0) )){
+            nDias=nDias+29;
+        }
+        else if(iMes=2){
+            nDias=nDias+28;
+        }
+ }
+        if(nMeses < 0){
+        nMeses=nMeses+12;
+        nAnos--;
+ }
     *qtdDias = nDias;
     *qtdAnos = nAnos;
-    *qtdMeses = nMeses;
-
-    //coloque o retorno correto
-    return 1;
+    *qtdMeses= nMeses;
+    
+return 1;
 }
 
 /*
@@ -198,51 +240,83 @@ int q2(char *datainicial, char *datafinal, int *qtdDias, int *qtdMeses, int *qtd
     Um n�mero n >= 0.
  */
 int q3(char *texto, char c, int isCaseSensitive){
-    int i,tam , qtdOcorrencias=0 ;
-    
-    for(tam=0;tam!='\n';tam++){
-	};
+    int i,tam=0 , qtdCaracter=0 ;
    
-    if (isCaseSensitive == 1){
-        for(i=0; i<texto[tam]; i++){
-            if (texto[i] == c)
-                qtdOcorrencias++;
-        }
-    }
-    else{                                             
-        if (c >= 65 && c <= 90){                        
-            for(i=0; i<texto[tam]; i++){             
-                if (texto[i] == c || texto[i] == c+32)  
-                    qtdOcorrencias++;
+    for(tam=0;texto[tam]!= '\0';tam++){};
+                                
+        if (isCaseSensitive == 1){
+            for(i=0; i<tam; i++){
+                if (texto[i] == c)
+                    qtdCaracter++;
             }
-        }else if (c >= 97 && c <= 122){                 
-            for(i=0; i<texto[tam]; i++){
-                if (texto[i] == c || texto[i] == c-32)
-                    qtdOcorrencias++;
-            } 
-        }   
-    } 
-    return qtdOcorrencias;
-}
+        }
+        else{                                             
+            if (c >= 65 && c <= 90){                        
+                for(i=0; i<tam; i++){             
+                    if (texto[i] == c || texto[i] == c+32)  
+                        qtdCaracter++;
+                }
+            }else if (c >= 97 && c <= 122){                 
+                for(i=0; i<tam; i++){
+                    if (texto[i] == c || texto[i] == c-32)
+                        qtdCaracter++;
+                } 
+            }   
+        } 
+        return qtdCaracter;
+    }
 
 /*
  Q4 = encontrar palavra em texto
  @objetivo
     Pesquisar todas as ocorr�ncias de uma palavra em um texto
  @entrada
-    uma string texto base (strTexto), uma string strBusca e um vetor de inteiros (posicoes) que ir� guardar as posi��es de in�cio e fim de cada ocorr�ncia da palavra (strBusca) no texto base (texto).
+    uma string texto base (strTexto), uma string strBusca e um vetor de inteiros (posicoes) que ir� guardar as 
+    posi��es de in�cio e fim de cada ocorr�ncia da palavra (strBusca) no texto base (texto).
  @saida
     Um n�mero n >= 0 correspondente a quantidade de ocorr�ncias encontradas.
-    O vetor posicoes deve ser preenchido com cada entrada e sa�da correspondente. Por exemplo, se tiver uma �nica ocorr�ncia, a posi��o 0 do vetor deve ser preenchido com o �ndice de in�cio do texto, e na posi��o 1, deve ser preenchido com o �ndice de fim da ocorrencias. Se tiver duas ocorr�ncias, a segunda ocorr�ncia ser� amazenado nas posi��es 2 e 3, e assim consecutivamente. Suponha a string "Instituto Federal da Bahia", e palavra de busca "dera". Como h� uma ocorr�ncia da palavra de busca no texto, deve-se armazenar no vetor, da seguinte forma:
+    O vetor posicoes deve ser preenchido com cada entrada e sa�da correspondente. Por exemplo,
+     se tiver uma �nica ocorr�ncia, a posi��o 0 do vetor deve ser preenchido com o �ndice de in�cio do texto,
+      e na posi��o 1, deve ser preenchido com o �ndice de fim da ocorrencias. Se tiver duas ocorr�ncias, 
+      a segunda ocorr�ncia ser� amazenado nas posi��es 2 e 3, e assim consecutivamente.
+       Suponha a string "Instituto Federal da Bahia", e palavra de busca "dera".
+        Como h� uma ocorr�ncia da palavra de busca no texto, deve-se armazenar no vetor, da seguinte forma:
         posicoes[0] = 13;
         posicoes[1] = 16;
         Observe que o �ndice da posi��o no texto deve come�ar ser contado a partir de 1.
         O retorno da fun��o, n, nesse caso seria 1;
  */
-int q4(char *strTexto, char *strBusca, int posicoes[30])
-{
-    int qtdOcorrencias = -1;
+int q4(char *strTexto, char *strBusca, int posicoes[30]){
+    int tamTexto,tamBusca,inicial, qtdOcorrencias = 0,i,j,x=0,d=0;
+    
+    for(i=0;i<strTexto[i]!='\0';i++){}
+        tamTexto=i;
+    for(j=0;strBusca[j]!='\0';j++){}
+        tamBusca=j;
 
+    if(tamTexto<tamBusca){
+        qtdOcorrencias=0;  
+    }
+
+    for ( i = 0, x = 0; strTexto[i] != '\0'; i ++) {
+        if (strTexto[i] == strBusca[x]) {
+            if (x == 0) 
+                inicial = i;
+                x ++;
+        }
+        else x = 0;
+        
+        if (strBusca[x] == '\0') {
+          qtdOcorrencias ++;
+            if (d < 30) {
+                posicoes[d] = inicial + 1;
+                posicoes[d+1] = i + 1;
+                x = 0;
+                d = d +2;
+            } 
+        else break;
+        }
+    }
     return qtdOcorrencias;
 }
 
@@ -258,10 +332,53 @@ int q4(char *strTexto, char *strBusca, int posicoes[30])
 
 int q5(int num)
 {
+	int invert=0,invert1=0, invert2=0,invert3=0,i=0,rest=0,rest1=0,rest2=0,rest3=0;
+    
+    if (num <10){ 
+        num=num*1;
+    }
+    
+    if (num>=10 && num<100){
+        
+            rest=num%10;
+            invert=num/10;
+            num=rest*10+ invert;
+    }
+        
+    if(num>=100 && num<1000){
+          
+            rest=num%100;
+            invert=num/100;
+            rest1=rest%10;
+            invert1=rest/10;
+            num=rest1*100 + invert1*10 + invert;
+    }
+    if (num>=1000 && num<10000){
 
+            rest=num%1000;
+            invert=num/1000;
+            rest1=rest%100;
+            invert1=rest/100;
+            rest2=rest1%10;
+            invert2=rest1/10;
+            num=rest2*1000 + invert2*100 + invert1*10 + invert;
+
+    }
+    if (num>=10000 && num<100000){
+
+            rest=num%10000;
+            invert=num/10000;
+            rest1=rest%1000;
+            invert1=rest/1000;
+            rest2=rest1%100;
+            invert2=rest1/100;
+            rest3=rest2%10;
+            invert3=rest2/10;
+            num=rest3*10000 + invert3*1000 + invert2*100 + invert1*10 +invert;
+
+    }
     return num;
 }
-
 /*
  Q6 = ocorr�ncia de um n�mero em outro
  @objetivo
@@ -271,9 +388,56 @@ int q5(int num)
  @saida
     Quantidade de vezes que n�mero de busca ocorre em n�mero base
  */
-
 int q6(int numerobase, int numerobusca)
 {
-    int qtdOcorrencias;
+    int aux, aux1, qtdOcorrencias =0,tam = 1;
+
+	aux = numerobusca;
+        
+        while (aux != 0){
+            
+            tam = tam * 10;
+            aux = aux/ 10;
+	}
+
+	aux = numerobase;
+
+	    while (aux != 0){
+            if (aux % tam == numerobusca){
+
+                qtdOcorrencias++;
+                aux = aux/tam;
+    }   
+        else
+	            aux =aux/10;
+	}
+    
     return qtdOcorrencias;
 }
+
+void usarData(char *datar, int *usarDia, int *usarMes, int *usarAno){
+   
+    char dia[3], mes[3], ano[5]; 
+    int tam, i, k, j = 0, contBarra=0;
+	
+    // quebra a data
+    for (i=0;  datar[i]!='/'; i++)
+        dia[i] = datar[i];
+    for (i=i+1;  datar[i]!='/'; i++){
+        mes[j] = datar[i];
+        j++;
+    }
+    j=0;
+    
+    for (i=i+1; i <= tam; i++ ){
+        ano[j]=datar[i];
+        j++;
+    }
+    
+	// Converte dia mes e ano em inteiros    
+    int intDia = *usarDia = atoi(dia);
+    int intMes = *usarMes = atoi(mes);
+    int intAno = *usarAno = atoi(ano);
+ 	
+            }
+
